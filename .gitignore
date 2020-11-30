@@ -1,0 +1,12 @@
+##accidental external files
+
+*.py
+##node modules
+node_modules/
+
+
+##lock json files
+package-lock.json
+
+##todo steps
+todo.md
