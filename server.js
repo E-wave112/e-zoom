@@ -11,6 +11,7 @@ const { ExpressPeerServer } = require('peer')
 //initiate the peerjs server
 const peerServer = ExpressPeerServer(server,{
     debug:true
+
 });
 
 
@@ -25,16 +26,17 @@ app.get('/', (req,res)=>{
 //ROUTES
 
 app.get('/:room', (req,res)=>{
-
     res.render('room',{roomId:req.params.room});
 })
 
 //activate the websocket to enable user connections
 io.on('connection',(socket) => {
+
     socket.on('join-room',(roomId,userId) =>{
+        
         socket.join(roomId);
         socket.to(roomId).broadcast.emit('user-connected', userId)
-        socket.on('message',message =>{
+        socket.on('message',message => {
             io.to(roomId).emit('createMessage', message)
         })
     })
